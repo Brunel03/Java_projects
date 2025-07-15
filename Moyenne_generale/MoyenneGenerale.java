@@ -12,12 +12,20 @@ public class MoyenneGenerale {
 
         // Setting the size of the arrays       
         System.out.print("Number of Subjects: ");
-        while (!scan.hasNextInt()) { // check if input is an Integer. When not the User will retry 
-            System.out.println("\nIt is not a number. Retry");
-            scan.next();
-            System.out.print("\nNumber of Subjects: ");
-        }
-        int size = scan.nextInt();
+        int size;
+        do{
+            while (!scan.hasNextInt()) { // check if input is an Integer. When not the User will retry 
+                System.out.println("\nIt is not a number. Retry");
+                scan.next();
+                System.out.print("Number of Subjects: ");
+            }
+            size = scan.nextInt();
+            if (size < 1) { // check if the size is less than 1. When not the User will retry.
+                System.out.println("\nThe number of Subjects must be at least 1. Retry");
+                //scan.next();
+                System.out.print("Number of Subjects: ");
+            }
+        }while (size < 1);
         scan.nextLine();
         System.out.println();
 
@@ -25,26 +33,43 @@ public class MoyenneGenerale {
         marks = new float[size];
         coefs =  new float[size];
 
+        System.out.println("\n\nPreparing to enter the Datas ...");
+        System.out.println("--------------------------------------------------");
         // Filling the arrays with user input
         for (int i = 0; i < size; i++) {
             System.out.print("Name of the subject: ");
             subject[i] = scan.nextLine();
 
             System.out.print("Mark: ");
-            while (!scan.hasNextFloat()) { // check if input is a Float. When not the User will retry 
-                System.out.println("\nIt is not a number. Retry");
-                scan.next();
-                System.out.print("\nMark: ");
-            }
-            marks[i] = scan.nextFloat();
+            do{
+                while (!scan.hasNextFloat()) { // check if input is a Float. When not the User will retry 
+                    System.out.println("\nIt is not a number. Retry");
+                    scan.next();
+                    System.out.print("Mark: ");
+                }
+                marks[i] = scan.nextFloat();
+                if (marks[i] < 0.25 || marks[i] > 20) {
+                    System.out.println("\nThe Mark should be between 0.25 and 20.");
+                    //scan.next();
+                    System.out.print("Mark: ");
+                }
+            }while(marks[i] < 0.25 || marks[i] > 20);
+            
 
             System.out.print("Coefficient: ");
-            while (!scan.hasNextFloat()) { // check if input is a Float. When not the User will retry 
-                System.out.println("\nIt is not a number. Retry");
-                scan.next();
-                System.out.print("\nCoefficient: ");
-            }
-            coefs[i] = scan.nextFloat();
+            do {
+                while (!scan.hasNextFloat()) { // check if input is a Float. When not the User will retry 
+                    System.out.println("\nIt is not a number. Retry");
+                    scan.next();
+                    System.out.print("Coefficient: ");
+                }
+                coefs[i] = scan.nextFloat();
+                if (coefs[i] <= 0) { // check if the Coefficient is greather than 0
+                    System.out.println("\nThe Coefficient must be greather than 0");
+                    //scan.next();
+                    System.out.print("Coefficient: ");
+                }
+            } while (coefs[i] <= 0);
             scan.nextLine();
 
             System.out.println();
