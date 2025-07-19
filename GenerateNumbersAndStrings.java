@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateNumbersAndStrings {
     public static void main(String[] args) {
@@ -8,12 +8,11 @@ public class GenerateNumbersAndStrings {
         var hi = generateNumber(6);
         System.out.println(hi);
 
-        var matricule = generateString(2,true) +'-'+generateNumber(4);
+        var matricule = String.join("_", generateString(2,true), generateNumber(4));
         System.out.println(matricule);
     }
 
     public static String generateString( int size, boolean uppercase) {
-        Random random = new Random();
         String string = "";
 
         if (size <= 0) {
@@ -21,7 +20,7 @@ public class GenerateNumbersAndStrings {
         }
 
         for (int i = 0; i < size; i++){
-            char letter = (char) ('a' + random.nextInt(26));
+            char letter = (char) ('a' + ThreadLocalRandom.current().nextInt(26));
             string += Character.toString( letter);
         }
 
@@ -32,7 +31,6 @@ public class GenerateNumbersAndStrings {
     }
 
     public static String generateString2( int size, boolean capitalize) {
-        Random random = new Random();
         String alphabet = "abcdefghijklmnopqrstuvwxyz", string = "";
 
         if (size <= 0) {
@@ -40,7 +38,7 @@ public class GenerateNumbersAndStrings {
         }
 
         for (int i = 0; i < size; i++) {
-            int index = random.nextInt(alphabet.length());
+            int index = ThreadLocalRandom.current().nextInt(alphabet.length());
             string += alphabet.charAt(index);
         }
 
@@ -51,7 +49,6 @@ public class GenerateNumbersAndStrings {
     }
 
     public static String generateNumber( int size) {
-        Random random = new Random();
         String number = "";
 
         if (size <= 0) {
@@ -59,7 +56,7 @@ public class GenerateNumbersAndStrings {
         }
 
         for (int i = 0; i < size; i++) {
-            byte digit = (byte) (random.nextInt(10));
+            byte digit = (byte) (ThreadLocalRandom.current().nextInt(10));
             number += Byte.toString(digit);
         }
         return number;
