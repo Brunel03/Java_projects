@@ -1,4 +1,6 @@
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GenerateNumbersAndStrings {
     public static void main(String[] args) {
@@ -9,7 +11,11 @@ public class GenerateNumbersAndStrings {
         System.out.println(hi);
 
         var matricule = String.join("-", generateString(2,true), generateNumber(4));
-        System.out.println(matricule);
+        System.out.printf("%s\n",matricule);
+
+        randomChoice(false, "Douala", "Washington DC", "Berlin", "Londres", "Münich");
+        System.out.println();
+        randomChoice(true, "Douala", "Washington DC", "Berlin", "Londres", "Münich");
     }
 
     public static String generateString( int size, boolean uppercase) {
@@ -64,5 +70,25 @@ public class GenerateNumbersAndStrings {
         }
         String number = sb.toString(); 
         return number;
+    }
+
+    public static void randomChoice(boolean iterate, String... items) {
+        ArrayList<String> itemList = new ArrayList<>(Arrays.asList(items));
+
+        if (itemList.isEmpty()) {
+            System.out.println("No Element entered.");
+            return;
+        }
+
+        if (iterate) {
+            while (!itemList.isEmpty()) {
+                int index = ThreadLocalRandom.current().nextInt(itemList.size());
+                String item = itemList.remove(index);
+                System.out.println(item);
+            }
+        } else {
+            int index = ThreadLocalRandom.current().nextInt(itemList.size());
+            System.out.println(itemList.get(index));
+        }
     }
 }
